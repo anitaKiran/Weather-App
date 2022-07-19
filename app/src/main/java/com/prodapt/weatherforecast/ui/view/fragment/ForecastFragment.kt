@@ -49,7 +49,6 @@ class ForecastFragment : Fragment() {
     private fun getCurrentLoc(){
         // Location Provider Client
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-
         if (checkPermissions()) {
             if (isLocationEnabled()) {
                 val locationRequest = LocationRequest.create().setPriority(Priority.PRIORITY_HIGH_ACCURACY)
@@ -88,7 +87,6 @@ class ForecastFragment : Fragment() {
             when (it?.status) {
                 Status.SUCCESS -> {
                     it.data?.let { forecastData ->
-                        //Log.e("current forcast", ""+forecastData.data.get(0).temp)
                         setWeatherData(forecastData)
                     }
                 }
@@ -108,7 +106,7 @@ class ForecastFragment : Fragment() {
         }
         // set temp of current date
         weather.data.get(0).temp?.let { temp->
-            binding.tvTemp.text= temp.toString()
+            binding.tvTemp.text= Math.round(temp).toString().plus( "\u2103")
         }
         // set weather description
         weather.data.get(0).weather.description?.let { desc->
