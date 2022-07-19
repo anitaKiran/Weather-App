@@ -5,7 +5,48 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/blue_bg">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/edittext_search_temp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/searchEdittext"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@android:color/transparent"
+            android:hint="@string/search_city"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_marginEnd="@dimen/_50sdp"
+            android:textSize="@dimen/_13ssp"
+            android:textColorHint="@color/grey"
+            android:textStyle="italic"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_search"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/searchEdittext"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/ic_search"
+            android:layout_gravity="end"
+            android:padding="@dimen/_10sdp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_city_name"
@@ -41,8 +82,5 @@
         android:textColor="@color/white"
         android:textSize="@dimen/_50ssp"
         android:text="30"/>
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

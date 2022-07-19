@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Weather Forecast</string>
+    <string name="search_city">Search Weather by City or Country</string>
 </resources>

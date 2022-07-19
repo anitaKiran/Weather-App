@@ -26,6 +26,7 @@ class ForecastViewModel @Inject constructor(private val repo: WeatherRepository)
             viewModelScope.launch(Dispatchers.IO) {
                 repo.getForecast(city, lat, lon).let { response ->
                     withContext(Dispatchers.Main) {
+                        Log.e("Success", "ViewModel")
                         if (response.isSuccessful) {
                             _forecast.postValue(Resource.success(response.body()))
                         } else

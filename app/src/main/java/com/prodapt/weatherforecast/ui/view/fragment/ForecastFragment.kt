@@ -38,6 +38,7 @@ class ForecastFragment : Fragment() {
     ): View {
         _binding = ForecastFragmentLayoutBinding.inflate(inflater, container, false)
 
+        setupUI()
         getCurrentLoc()
 
         return binding.root
@@ -113,6 +114,17 @@ class ForecastFragment : Fragment() {
             binding.tvWeatherDesc.text = desc
         }
     }
+
+    private fun setupUI(){
+        binding.imgSearch.setOnClickListener {
+            binding.searchEdittext.text?.toString().let { city->
+                viewModel.getWeatherForecast(city= city, null,null)
+            }
+        }
+    }
+
+
+
 
     private fun checkPermissions(): Boolean {
         if (ActivityCompat.checkSelfPermission(requireActivity(),Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
