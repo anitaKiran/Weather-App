@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue_bg">
+    android:background="@drawable/app_background">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_editText"
@@ -69,8 +69,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="@dimen/_5sdp"
         android:textColor="@color/white"
-        android:textSize="@dimen/_15ssp"
-        android:text="Cloudy" />
+        android:textSize="@dimen/_15ssp" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_temp"
@@ -81,8 +80,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="@dimen/_5sdp"
         android:textColor="@color/white"
-        android:textSize="@dimen/_50ssp"
-        android:text="30" />
+        android:textSize="@dimen/_50ssp" />
 
     <View
         android:id="@+id/view"

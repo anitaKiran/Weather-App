@@ -20,13 +20,11 @@ class ForecastViewModel @Inject constructor(private val repo: WeatherRepository)
     private var _forecast = MutableLiveData<Resource<ForecastModel>>()
     val forecast: LiveData<Resource<ForecastModel>> get() = _forecast
 
-
      fun getWeatherForecast(city:String?,lat:Double?,lon:Double?) {
         try {
             viewModelScope.launch(Dispatchers.IO) {
                 repo.getForecast(city, lat, lon).let { response ->
                     withContext(Dispatchers.Main) {
-                        Log.e("Success", "ViewModel")
                         if (response.isSuccessful) {
                             _forecast.postValue(Resource.success(response.body()))
                         } else
@@ -36,7 +34,7 @@ class ForecastViewModel @Inject constructor(private val repo: WeatherRepository)
             }
         }
         catch(e:Exception){
-            _forecast.postValue(Resource.error("No Data found", null))
+            _forecast.postValue(Resource.error(AppConstants.UNABLE_TO_CONNECT, null))
         }
     }
 }

@@ -7,7 +7,6 @@ import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -71,7 +70,7 @@ class ForecastFragment : Fragment() {
                             if(lat != null && lon != null) {
                                 //call api for fetching the forecast of current location
                                 viewModel.getWeatherForecast(city= null, lat = lat,lon = lon)
-                                // observe forecast response
+                                // observe api response
                                 observeForecast()
                             }
                         }
@@ -79,13 +78,14 @@ class ForecastFragment : Fragment() {
                     Looper.myLooper()
                 )
             } else {
-                Toast.makeText(requireContext(), "Turn on location", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), AppConstants.TURN_ON_LOC, Toast.LENGTH_LONG).show()
             }
         } else {
             requestPermissions()
         }
     }
 
+    // observer api response
     private fun observeForecast(){
         viewModel.forecast.observe(viewLifecycleOwner, Observer {
             when (it?.status) {
@@ -117,7 +117,7 @@ class ForecastFragment : Fragment() {
             binding.tvWeatherDesc.text = desc
         }
         // populate recyclerview with 5 days forecast
-        itemsList.clear()
+        itemsList.clear() // clear the list in case previous data is kept
         for(i in 1 until 6) {
             itemsList.add(weather.data[i])
         }

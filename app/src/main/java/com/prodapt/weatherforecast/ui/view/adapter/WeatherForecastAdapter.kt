@@ -1,6 +1,5 @@
 package com.prodapt.weatherforecast
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +14,6 @@ class WeatherForecastAdapter() : RecyclerView.Adapter<WeatherForecastAdapter.Dat
 
     fun setForecastList(list: ArrayList<ForecastData>) {
         this.list = list
-        Log.e("setlist", "true")
         notifyDataSetChanged()
     }
 
