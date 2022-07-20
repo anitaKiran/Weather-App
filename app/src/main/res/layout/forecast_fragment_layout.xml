@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/blue_bg">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -69,7 +70,7 @@
         android:layout_marginTop="@dimen/_5sdp"
         android:textColor="@color/white"
         android:textSize="@dimen/_15ssp"
-        android:text="Cloudy"/>
+        android:text="Cloudy" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_temp"
@@ -81,6 +82,28 @@
         android:layout_marginTop="@dimen/_5sdp"
         android:textColor="@color/white"
         android:textSize="@dimen/_50ssp"
-        android:text="30"/>
+        android:text="30" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/tv_temp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/_80sdp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/_20sdp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/list_row_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,6 @@
 package com.prodapt.weatherforecast
 
-data class Data(
+data class ForecastData(
     val app_max_temp: Double,
     val app_min_temp: Double,
     val clouds: Int,

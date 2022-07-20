@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
@@ -31,6 +32,9 @@ class ForecastFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel : ForecastViewModel by viewModels()
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private var forecastListAdapter = WeatherForecastAdapter()
+    private var itemsList: ArrayList<ForecastData> = ArrayList()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,7 +43,6 @@ class ForecastFragment : Fragment() {
         _binding = ForecastFragmentLayoutBinding.inflate(inflater, container, false)
 
         setupUI()
-        getCurrentLoc()
 
         return binding.root
     }
@@ -99,7 +102,7 @@ class ForecastFragment : Fragment() {
         })
     }
 
-    // set ui
+    // set weather data
     private fun setWeatherData(weather: ForecastModel){
         // set city name
         weather.city_name?.let{ city ->
@@ -113,18 +116,46 @@ class ForecastFragment : Fragment() {
         weather.data.get(0).weather.description?.let { desc->
             binding.tvWeatherDesc.text = desc
         }
+        // populate recyclerview with 5 days forecast
+        itemsList.clear()
+        for(i in 1 until 6) {
+            itemsList.add(weather.data[i])
+        }
+        forecastListAdapter.setForecastList(itemsList)
+
     }
 
     private fun setupUI(){
+        // set recyclerview adapter
+        binding.recyclerView.apply {
+            setHasFixedSize(true)
+            adapter = forecastListAdapter
+        }
+
+        // click event for search icon
         binding.imgSearch.setOnClickListener {
-            binding.searchEdittext.text?.toString().let { city->
-                viewModel.getWeatherForecast(city= city, null,null)
+            searchWithCity()
+        }
+
+        binding.searchEdittext.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                searchWithCity()
+                return@setOnEditorActionListener true
             }
+            false
         }
     }
 
+    private fun searchWithCity(){
+        HideSoftKeyboard.hide(requireContext(),binding.imgSearch)
+        if(binding.searchEdittext.text.toString().isNotEmpty())
+            viewModel.getWeatherForecast(binding.searchEdittext.text.toString(), null,null)
+    }
 
-
+    override fun onResume() {
+        super.onResume()
+        getCurrentLoc()
+    }
 
     private fun checkPermissions(): Boolean {
         if (ActivityCompat.checkSelfPermission(requireActivity(),Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
@@ -137,7 +168,7 @@ class ForecastFragment : Fragment() {
     private fun requestPermissions() {
         ActivityCompat.requestPermissions(requireActivity(),
             arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION),
-            42
+            50
         )
     }
 
@@ -148,4 +179,11 @@ class ForecastFragment : Fragment() {
             LocationManager.NETWORK_PROVIDER
         )
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 }
+
